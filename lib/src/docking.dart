@@ -77,8 +77,13 @@ class _DockingState extends State<Docking> {
                 area.globalKey != null &&
                 area.parent != widget.layout?.maximizedArea) {
               // keeping alive other areas
-              children.add(ExcludeFocus(
-                  child: Offstage(child: _buildArea(context, area))));
+              children.add(
+                ExcludeFocus(
+                  child: Offstage(
+                    child: _buildArea(context, area),
+                  ),
+                ),
+              );
             }
           }
         }
@@ -119,8 +124,7 @@ class _DockingState extends State<Docking> {
           maximizableTab: widget.maximizableTab,
           maximizableTabsArea: widget.maximizableTabsArea);
     }
-    throw UnimplementedError(
-        'Unrecognized runtimeType: ' + area.runtimeType.toString());
+    throw UnimplementedError('Unrecognized runtimeType: ${area.runtimeType}');
   }
 
   Widget _row(BuildContext context, DockingRow row) {
@@ -130,10 +134,10 @@ class _DockingState extends State<Docking> {
     });
 
     return MultiSplitView(
-        children: children,
         axis: Axis.horizontal,
         controller: row.controller,
-        antiAliasingWorkaround: widget.antiAliasingWorkaround);
+        antiAliasingWorkaround: widget.antiAliasingWorkaround,
+        children: children);
   }
 
   Widget _column(BuildContext context, DockingColumn column) {
@@ -143,10 +147,11 @@ class _DockingState extends State<Docking> {
     });
 
     return MultiSplitView(
-        children: children,
-        axis: Axis.vertical,
-        controller: column.controller,
-        antiAliasingWorkaround: widget.antiAliasingWorkaround);
+      axis: Axis.vertical,
+      controller: column.controller,
+      antiAliasingWorkaround: widget.antiAliasingWorkaround,
+      children: children,
+    );
   }
 
   void _forceRebuild() {

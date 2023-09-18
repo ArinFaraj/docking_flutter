@@ -1,5 +1,5 @@
-import 'package:docking/src/docking_drag.dart';
 import 'package:docking/src/docking_buttons_builder.dart';
+import 'package:docking/src/docking_drag.dart';
 import 'package:docking/src/docking_icons.dart';
 import 'package:docking/src/internal/widgets/draggable_config_mixin.dart';
 import 'package:docking/src/internal/widgets/drop/content_wrapper.dart';
@@ -14,17 +14,17 @@ import 'package:tabbed_view/tabbed_view.dart';
 /// Represents a widget for [DockingItem].
 @internal
 class DockingItemWidget extends StatefulWidget {
-  DockingItemWidget(
-      {Key? key,
-      required this.layout,
-      required this.dockingDrag,
-      required this.item,
-      this.onItemSelection,
-      this.onItemClose,
-      this.itemCloseInterceptor,
-      this.dockingButtonsBuilder,
-      required this.maximizable})
-      : super(key: key);
+  const DockingItemWidget({
+    Key? key,
+    required this.layout,
+    required this.dockingDrag,
+    required this.item,
+    this.onItemSelection,
+    this.onItemClose,
+    this.itemCloseInterceptor,
+    this.dockingButtonsBuilder,
+    required this.maximizable,
+  }) : super(key: key);
 
   final DockingLayout layout;
   final DockingItem item;
@@ -48,7 +48,7 @@ class DockingItemWidgetState extends State<DockingItemWidget>
     String name = widget.item.name != null ? widget.item.name! : '';
     Widget content = widget.item.widget;
     if (widget.item.globalKey != null) {
-      content = KeyedSubtree(child: content, key: widget.item.globalKey);
+      content = KeyedSubtree(key: widget.item.globalKey, child: content);
     }
     List<TabButton>? buttons;
     if (widget.item.buttons != null && widget.item.buttons!.isNotEmpty) {
@@ -59,9 +59,7 @@ class DockingItemWidgetState extends State<DockingItemWidget>
         ? widget.item.maximizable!
         : widget.maximizable;
     if (maximizable) {
-      if (buttons == null) {
-        buttons = [];
-      }
+      buttons ??= [];
       if (widget.layout.maximizedArea != null &&
           widget.layout.maximizedArea == widget.item) {
         buttons.add(TabButton(
