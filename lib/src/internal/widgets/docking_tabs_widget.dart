@@ -14,7 +14,7 @@ import 'package:tabbed_view/tabbed_view.dart';
 
 /// Represents a widget for [DockingTabs].
 class DockingTabsWidget extends StatefulWidget {
-  DockingTabsWidget(
+  const DockingTabsWidget(
       {Key? key,
       required this.layout,
       required this.dockingDrag,
@@ -51,7 +51,7 @@ class DockingTabsWidgetState extends State<DockingTabsWidget>
     widget.dockingTabs.forEach((child) {
       Widget content = child.widget;
       if (child.globalKey != null) {
-        content = KeyedSubtree(child: content, key: child.globalKey);
+        content = KeyedSubtree(key: child.globalKey, child: content);
       }
       List<TabButton>? buttons;
       if (child.buttons != null && child.buttons!.isNotEmpty) {
@@ -62,9 +62,7 @@ class DockingTabsWidgetState extends State<DockingTabsWidget>
           ? child.maximizable!
           : widget.maximizableTab;
       if (maximizable) {
-        if (buttons == null) {
-          buttons = [];
-        }
+        buttons ??= [];
         if (widget.layout.maximizedArea != null &&
             widget.layout.maximizedArea == child) {
           buttons.add(TabButton(

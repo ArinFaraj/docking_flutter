@@ -1,5 +1,5 @@
-import 'package:docking/src/layout/docking_layout.dart';
 import 'package:docking/src/internal/layout/layout_modifier.dart';
+import 'package:docking/src/layout/docking_layout.dart';
 import 'package:meta/meta.dart';
 
 /// Removes [DockingItem] by id from this layout.
@@ -49,7 +49,7 @@ class RemoveItemById extends LayoutModifier {
           children.add(newChild);
         }
       });
-      if (children.length == 0) {
+      if (children.isEmpty) {
         return null;
       } else if (children.length == 1) {
         return children.first;
@@ -60,9 +60,9 @@ class RemoveItemById extends LayoutModifier {
         return DockingColumn(children);
       }
       throw ArgumentError(
-          'DockingArea class not recognized: ' + area.runtimeType.toString());
+          'DockingArea class not recognized: ${area.runtimeType}');
     }
     throw ArgumentError(
-        'DockingArea class not recognized: ' + area.runtimeType.toString());
+        'DockingArea class not recognized: ${area.runtimeType}');
   }
 }

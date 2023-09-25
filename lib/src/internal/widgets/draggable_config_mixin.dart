@@ -15,7 +15,7 @@ mixin DraggableConfigMixin {
         feedback: buildFeedback(name),
         dragAnchorStrategy: (Draggable<Object> draggable, BuildContext context,
                 Offset position) =>
-            Offset(20, 20),
+            const Offset(20, 20),
         onDragStarted: () {
           dockingDrag.enable = true;
         },
@@ -27,17 +27,17 @@ mixin DraggableConfigMixin {
   Widget buildFeedback(String name) {
     return Material(
         child: Container(
+            decoration:
+                BoxDecoration(border: Border.all(), color: Colors.grey[300]),
             child: ConstrainedBox(
-                constraints: new BoxConstraints(
+                constraints: const BoxConstraints(
                   minHeight: 0,
                   minWidth: 30,
                   maxHeight: double.infinity,
                   maxWidth: 150.0,
                 ),
                 child: Padding(
-                    child: Text(name, overflow: TextOverflow.ellipsis),
-                    padding: EdgeInsets.all(4))),
-            decoration:
-                BoxDecoration(border: Border.all(), color: Colors.grey[300])));
+                    padding: const EdgeInsets.all(4),
+                    child: Text(name, overflow: TextOverflow.ellipsis)))));
   }
 }

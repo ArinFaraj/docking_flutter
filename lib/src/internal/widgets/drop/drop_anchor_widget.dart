@@ -9,9 +9,11 @@ typedef DropWidgetListener = void Function(DropPosition? dropPosition);
 @internal
 abstract class DropAnchorBaseWidget extends StatelessWidget {
   const DropAnchorBaseWidget(
-      {required this.layout,
+      {Key? key,
+      required this.layout,
       required this.dropPosition,
-      required this.listener});
+      required this.listener})
+      : super(key: key);
 
   final DockingLayout layout;
   final DropPosition dropPosition;
@@ -63,7 +65,7 @@ abstract class DropAnchorBaseWidget extends StatelessWidget {
       } else if (dropPosition == DropPosition.left) {
         color = Colors.purple;
       }
-      return Container(child: Placeholder(color: color));
+      return Placeholder(color: color);
     }
     return Container();
   }
@@ -72,12 +74,17 @@ abstract class DropAnchorBaseWidget extends StatelessWidget {
 @internal
 class ItemDropAnchorWidget extends DropAnchorBaseWidget {
   const ItemDropAnchorWidget(
-      {required DockingLayout layout,
+      {Key? key,
+      required DockingLayout layout,
       required DropPosition dropPosition,
       required DropWidgetListener listener,
       required DockingItem dockingItem})
       : _dockingItem = dockingItem,
-        super(layout: layout, dropPosition: dropPosition, listener: listener);
+        super(
+            key: key,
+            layout: layout,
+            dropPosition: dropPosition,
+            listener: listener);
 
   final DockingItem _dockingItem;
 
@@ -98,12 +105,17 @@ class ItemDropAnchorWidget extends DropAnchorBaseWidget {
 @internal
 class TabsDropAnchorWidget extends DropAnchorBaseWidget {
   const TabsDropAnchorWidget(
-      {required DockingLayout layout,
+      {Key? key,
+      required DockingLayout layout,
       required DropPosition dropPosition,
       required DropWidgetListener listener,
       required DockingTabs dockingTabs})
       : _dockingTabs = dockingTabs,
-        super(layout: layout, dropPosition: dropPosition, listener: listener);
+        super(
+            key: key,
+            layout: layout,
+            dropPosition: dropPosition,
+            listener: listener);
 
   final DockingTabs _dockingTabs;
 
