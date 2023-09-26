@@ -45,8 +45,8 @@ class DockingItemWidgetState extends State<DockingItemWidget>
 
   @override
   Widget build(BuildContext context) {
-    String name = widget.item.name != null ? widget.item.name! : '';
-    Widget content = widget.item.widget;
+    final name = widget.item.name != null ? widget.item.name! : '';
+    var content = widget.item.widget;
     if (widget.item.globalKey != null) {
       content = KeyedSubtree(key: widget.item.globalKey, child: content);
     }
@@ -55,7 +55,7 @@ class DockingItemWidgetState extends State<DockingItemWidget>
       buttons = [];
       buttons.addAll(widget.item.buttons!);
     }
-    final bool maximizable = widget.item.maximizable != null
+    final maximizable = widget.item.maximizable != null
         ? widget.item.maximizable!
         : widget.maximizable;
     if (maximizable) {
@@ -72,7 +72,7 @@ class DockingItemWidgetState extends State<DockingItemWidget>
       }
     }
 
-    List<TabData> tabs = [
+    final tabs = <TabData>[
       TabData(
           value: widget.item,
           text: name,
@@ -81,7 +81,7 @@ class DockingItemWidgetState extends State<DockingItemWidget>
           leading: widget.item.leading,
           buttons: buttons)
     ];
-    TabbedViewController controller = TabbedViewController(tabs);
+    final controller = TabbedViewController(tabs);
 
     OnTabSelection? onTabSelection;
     if (widget.onItemSelection != null) {
@@ -92,7 +92,7 @@ class DockingItemWidgetState extends State<DockingItemWidget>
       };
     }
 
-    Widget tabbedView = TabbedView(
+    final Widget tabbedView = TabbedView(
         tabsAreaButtonsBuilder: _tabsAreaButtonsBuilder,
         onTabSelection: onTabSelection,
         tabCloseInterceptor: _tabCloseInterceptor,
@@ -118,7 +118,7 @@ class DockingItemWidgetState extends State<DockingItemWidget>
 
   bool _onBeforeDropAccept(
       DraggableData source, TabbedViewController target, int newIndex) {
-    DockingItem dockingItem = source.tabData.value;
+    final DockingItem dockingItem = source.tabData.value;
     if (dockingItem != widget.item) {
       widget.layout.moveItem(
           draggedItem: dockingItem,

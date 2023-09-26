@@ -9,8 +9,8 @@ import 'package:tabbed_view/tabbed_view.dart';
 mixin DraggableConfigMixin {
   DraggableConfig buildDraggableConfig(
       {required DockingDrag dockingDrag, required TabData tabData}) {
-    DockingItem item = tabData.value;
-    String name = item.name != null ? item.name! : '';
+    final DockingItem item = tabData.value;
+    final name = item.name != null ? item.name! : '';
     return DraggableConfig(
         feedback: buildFeedback(name),
         dragAnchorStrategy: (Draggable<Object> draggable, BuildContext context,

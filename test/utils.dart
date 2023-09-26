@@ -7,18 +7,18 @@ DockingItem dockingItem(String? name, {dynamic id}) {
 }
 
 void removeItemById(DockingLayout layout, List<dynamic> ids) {
-  List<DockingItem> itemsToDispose = [];
-  for (dynamic id in ids) {
-    DockingItem? item = layout.findDockingItem(id);
+  final itemsToDispose = <DockingItem>[];
+  for (final dynamic id in ids) {
+    final item = layout.findDockingItem(id);
     if (item != null) {
       itemsToDispose.add(item);
     }
   }
-  List<DockingArea> areas = layout.layoutAreas();
+  final areas = layout.layoutAreas();
   layout.removeItemByIds(ids);
-  for (var area in areas) {
-    bool areaIsDisposedItem = false;
-    for (DockingItem disposedItem in itemsToDispose) {
+  for (final area in areas) {
+    var areaIsDisposedItem = false;
+    for (final disposedItem in itemsToDispose) {
       if (area == disposedItem) {
         areaIsDisposedItem = true;
         break;
@@ -33,14 +33,14 @@ void removeItemById(DockingLayout layout, List<dynamic> ids) {
 }
 
 void removeItem(DockingLayout layout, DockingItem item) {
-  List<DockingArea> areas = layout.layoutAreas();
+  final areas = layout.layoutAreas();
   layout.removeItem(item: item);
   testOldAreas(areas, disposedItem: item);
 }
 
 void moveItemToPosition(DockingLayout layout, DockingItem draggedItem,
     DropArea targetArea, DropPosition dropPosition) {
-  List<DockingArea> areas = layout.layoutAreas();
+  final areas = layout.layoutAreas();
   layout.moveItem(
       draggedItem: draggedItem,
       targetArea: targetArea,
@@ -50,7 +50,7 @@ void moveItemToPosition(DockingLayout layout, DockingItem draggedItem,
 
 void moveItemToIndex(DockingLayout layout, DockingItem draggedItem,
     DropArea targetArea, int dropIndex) {
-  List<DockingArea> areas = layout.layoutAreas();
+  final areas = layout.layoutAreas();
   layout.moveItem(
       draggedItem: draggedItem, targetArea: targetArea, dropIndex: dropIndex);
   testOldAreas(areas);
@@ -58,21 +58,21 @@ void moveItemToIndex(DockingLayout layout, DockingItem draggedItem,
 
 void addItemOnRootPosition(
     DockingLayout layout, DockingItem newItem, DropPosition dropPosition) {
-  List<DockingArea> areas = layout.layoutAreas();
+  final areas = layout.layoutAreas();
   layout.addItemOnRoot(newItem: newItem, dropPosition: dropPosition);
   testOldAreas(areas);
 }
 
 void addItemOnRootIndex(
     DockingLayout layout, DockingItem newItem, int dropIndex) {
-  List<DockingArea> areas = layout.layoutAreas();
+  final areas = layout.layoutAreas();
   layout.addItemOnRoot(newItem: newItem, dropIndex: dropIndex);
   testOldAreas(areas);
 }
 
 void addItemOn(DockingLayout layout, DockingItem newItem, DropArea targetArea,
     DropPosition dropPosition) {
-  List<DockingArea> areas = layout.layoutAreas();
+  final areas = layout.layoutAreas();
   layout.addItemOn(
       newItem: newItem, targetArea: targetArea, dropPosition: dropPosition);
   testOldAreas(areas);
@@ -113,7 +113,7 @@ void testNonDisposedArea(DockingArea area) {
 }
 
 void testOldAreas(List<DockingArea> layoutAreas, {DockingItem? disposedItem}) {
-  for (var area in layoutAreas) {
+  for (final area in layoutAreas) {
     if (area is DockingItem && area != disposedItem) {
       testNonDisposedArea(area);
     } else {
@@ -166,7 +166,7 @@ void testDockingItem(DockingArea item,
   testDockingArea(item,
       layoutIndex: layoutIndex, hasParent: hasParent, level: level, path: path);
   expect(item.type, DockingAreaType.item, reason: 'type');
-  DockingItem item0 = item as DockingItem;
+  final item0 = item as DockingItem;
   expect(item0.name, name, reason: 'name');
 }
 

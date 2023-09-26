@@ -21,17 +21,16 @@ abstract class ContentWrapperBase extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-      List<Widget> children = [Positioned.fill(child: child)];
+      final children = <Widget>[Positioned.fill(child: child)];
 
       // percentage of width reserved for detecting center area
-      const double centerWidthRatio = 50;
+      const centerWidthRatio = 50;
       // reserved width to detect center area
-      final double centerWidth = centerWidthRatio * constraints.maxWidth / 100;
+      final centerWidth = centerWidthRatio * constraints.maxWidth / 100;
       // reserved width to detect left and right areas
-      final double horizontalEdgeWidth =
-          (constraints.maxWidth - centerWidth) / 2;
+      final horizontalEdgeWidth = (constraints.maxWidth - centerWidth) / 2;
       // height reserved for detecting the top and bottom areas
-      final double verticalEdgeHeight = constraints.maxHeight / 2;
+      final verticalEdgeHeight = constraints.maxHeight / 2;
 
       children.add(Positioned(
           width: horizontalEdgeWidth,

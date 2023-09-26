@@ -30,14 +30,14 @@ class RemoveItem extends LayoutModifier {
   /// Builds a new root.
   DockingArea? _buildLayout(DockingArea area) {
     if (area is DockingItem) {
-      DockingItem dockingItem = area;
+      final dockingItem = area;
       if (dockingItem == itemToRemove) {
         return null;
       }
       return dockingItem;
     } else if (area is DockingTabs) {
-      DockingTabs dockingTabs = area;
-      List<DockingItem> children = [];
+      final dockingTabs = area;
+      final children = <DockingItem>[];
       dockingTabs.forEach((child) {
         if (child != itemToRemove) {
           children.add(child);
@@ -46,15 +46,15 @@ class RemoveItem extends LayoutModifier {
       if (children.length == 1) {
         return children.first;
       }
-      DockingTabs newDockingTabs = DockingTabs(children,
+      final newDockingTabs = DockingTabs(children,
           maximized: dockingTabs.maximized,
           maximizable: dockingTabs.maximizable);
       newDockingTabs.selectedIndex = dockingTabs.selectedIndex;
       return newDockingTabs;
     } else if (area is DockingParentArea) {
-      List<DockingArea> children = [];
+      final children = <DockingArea>[];
       area.forEach((child) {
-        DockingArea? newChild = _buildLayout(child);
+        final newChild = _buildLayout(child);
         if (newChild != null) {
           children.add(newChild);
         }

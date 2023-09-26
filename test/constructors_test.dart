@@ -12,7 +12,7 @@ void main() {
   });
 
   test('empty layout', () {
-    DockingLayout layout = DockingLayout();
+    final layout = DockingLayout();
     expect(layout.root, isNull);
   });
 

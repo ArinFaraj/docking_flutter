@@ -69,9 +69,9 @@ class _DockingState extends State<Docking> {
   Widget build(BuildContext context) {
     if (widget.layout != null) {
       if (widget.layout!.maximizedArea != null) {
-        List<DockingArea> areas = widget.layout!.layoutAreas();
-        List<Widget> children = [];
-        for (DockingArea area in areas) {
+        final areas = widget.layout!.layoutAreas();
+        final children = <Widget>[];
+        for (final area in areas) {
           if (area != widget.layout!.maximizedArea!) {
             if (area is DockingItem &&
                 area.globalKey != null &&
@@ -128,7 +128,7 @@ class _DockingState extends State<Docking> {
   }
 
   Widget _row(BuildContext context, DockingRow row) {
-    List<Widget> children = [];
+    final children = <Widget>[];
     row.forEach((child) {
       children.add(_buildArea(context, child));
     });
@@ -141,7 +141,7 @@ class _DockingState extends State<Docking> {
   }
 
   Widget _column(BuildContext context, DockingColumn column) {
-    List<Widget> children = [];
+    final children = <Widget>[];
     column.forEach((child) {
       children.add(_buildArea(context, child));
     });

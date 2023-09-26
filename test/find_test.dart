@@ -9,49 +9,49 @@ DockingItem dockingItem(dynamic id) {
 void main() {
   group('find item', () {
     test('empty layout', () {
-      DockingLayout layout = DockingLayout(root: null);
+      final layout = DockingLayout(root: null);
       expect(layout.findDockingItem(1), isNull);
     });
     test('row', () {
-      DockingItem item1 = dockingItem(1);
-      DockingItem item2 = dockingItem(2);
-      DockingRow row = DockingRow([item1, item2]);
-      DockingLayout layout = DockingLayout(root: row);
+      final item1 = dockingItem(1);
+      final item2 = dockingItem(2);
+      final row = DockingRow([item1, item2]);
+      final layout = DockingLayout(root: row);
       expect(layout.findDockingItem(1), isNotNull);
       expect(layout.findDockingItem(2), isNotNull);
       expect(layout.findDockingItem(3), isNull);
     });
     test('column', () {
-      DockingItem item1 = dockingItem(1);
-      DockingItem item2 = dockingItem(2);
-      DockingColumn column = DockingColumn([item1, item2]);
-      DockingLayout layout = DockingLayout(root: column);
+      final item1 = dockingItem(1);
+      final item2 = dockingItem(2);
+      final column = DockingColumn([item1, item2]);
+      final layout = DockingLayout(root: column);
       expect(layout.findDockingItem(1), isNotNull);
       expect(layout.findDockingItem(2), isNotNull);
       expect(layout.findDockingItem(3), isNull);
     });
 
     test('tabs', () {
-      DockingItem itemB = dockingItem(1);
-      DockingItem itemC = dockingItem(2);
-      DockingTabs tabs = DockingTabs([itemB, itemC]);
-      DockingLayout layout = DockingLayout(root: tabs);
+      final itemB = dockingItem(1);
+      final itemC = dockingItem(2);
+      final tabs = DockingTabs([itemB, itemC]);
+      final layout = DockingLayout(root: tabs);
       expect(layout.findDockingItem(1), isNotNull);
       expect(layout.findDockingItem(2), isNotNull);
       expect(layout.findDockingItem(3), isNull);
     });
 
     test('complex', () {
-      DockingItem itemA = dockingItem('a');
-      DockingItem itemB = dockingItem('b');
-      DockingItem itemC = dockingItem('c');
-      DockingItem itemD = dockingItem('d');
-      DockingItem itemE = dockingItem('e');
-      DockingColumn innerColumn = DockingColumn([itemB, itemC]);
-      DockingRow row = DockingRow([itemA, innerColumn]);
-      DockingTabs tabs = DockingTabs([itemD, itemE]);
-      DockingColumn column = DockingColumn([row, tabs]);
-      DockingLayout layout = DockingLayout(root: column);
+      final itemA = dockingItem('a');
+      final itemB = dockingItem('b');
+      final itemC = dockingItem('c');
+      final itemD = dockingItem('d');
+      final itemE = dockingItem('e');
+      final innerColumn = DockingColumn([itemB, itemC]);
+      final row = DockingRow([itemA, innerColumn]);
+      final tabs = DockingTabs([itemD, itemE]);
+      final column = DockingColumn([row, tabs]);
+      final layout = DockingLayout(root: column);
 
       expect(layout.findDockingItem('a'), isNotNull);
       expect(layout.findDockingItem('b'), isNotNull);
@@ -62,17 +62,17 @@ void main() {
     });
 
     test('complex 2', () {
-      DockingItem itemA = dockingItem('a');
-      DockingItem itemB = dockingItem('b');
-      DockingItem itemC = dockingItem('c');
-      DockingItem itemD = dockingItem('d');
-      DockingItem itemE = dockingItem('e');
-      DockingItem itemF = dockingItem('f');
-      DockingColumn innerColumn = DockingColumn([itemB, itemC]);
-      DockingRow row = DockingRow([itemA, innerColumn]);
-      DockingTabs tabs = DockingTabs([itemD, itemE]);
-      DockingColumn column = DockingColumn([row, tabs, itemF]);
-      DockingLayout layout = DockingLayout(root: column);
+      final itemA = dockingItem('a');
+      final itemB = dockingItem('b');
+      final itemC = dockingItem('c');
+      final itemD = dockingItem('d');
+      final itemE = dockingItem('e');
+      final itemF = dockingItem('f');
+      final innerColumn = DockingColumn([itemB, itemC]);
+      final row = DockingRow([itemA, innerColumn]);
+      final tabs = DockingTabs([itemD, itemE]);
+      final column = DockingColumn([row, tabs, itemF]);
+      final layout = DockingLayout(root: column);
 
       expect(layout.findDockingItem('a'), isNotNull);
       expect(layout.findDockingItem('b'), isNotNull);
@@ -84,19 +84,19 @@ void main() {
     });
 
     test('complex 3', () {
-      DockingItem itemA = dockingItem('a');
-      DockingItem itemB = dockingItem('b');
-      DockingItem itemC = dockingItem('c');
-      DockingItem itemD = dockingItem('d');
-      DockingItem itemE = dockingItem('e');
-      DockingItem itemF = dockingItem('f');
-      DockingItem itemG = dockingItem('g');
-      DockingColumn innerColumn = DockingColumn([itemB, itemC]);
-      DockingRow row = DockingRow([itemA, innerColumn]);
-      DockingTabs tabs = DockingTabs([itemD, itemE]);
-      DockingColumn column = DockingColumn([row, tabs, itemF]);
-      DockingRow row2 = DockingRow([itemG, column]);
-      DockingLayout layout = DockingLayout(root: row2);
+      final itemA = dockingItem('a');
+      final itemB = dockingItem('b');
+      final itemC = dockingItem('c');
+      final itemD = dockingItem('d');
+      final itemE = dockingItem('e');
+      final itemF = dockingItem('f');
+      final itemG = dockingItem('g');
+      final innerColumn = DockingColumn([itemB, itemC]);
+      final row = DockingRow([itemA, innerColumn]);
+      final tabs = DockingTabs([itemD, itemE]);
+      final column = DockingColumn([row, tabs, itemF]);
+      final row2 = DockingRow([itemG, column]);
+      final layout = DockingLayout(root: row2);
 
       expect(layout.findDockingItem('a'), isNotNull);
       expect(layout.findDockingItem('b'), isNotNull);

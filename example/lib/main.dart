@@ -30,7 +30,7 @@ class _DockingExamplePageState extends State<DockingExamplePage> {
   @override
   void initState() {
     super.initState();
-    int v = 1;
+    var v = 1;
     _layout = DockingLayout(
         root: DockingRow([
       _buildItem(v++, weight: .2),

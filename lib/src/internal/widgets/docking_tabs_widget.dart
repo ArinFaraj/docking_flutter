@@ -47,9 +47,9 @@ class DockingTabsWidgetState extends State<DockingTabsWidget>
 
   @override
   Widget build(BuildContext context) {
-    List<TabData> tabs = [];
+    final tabs = <TabData>[];
     widget.dockingTabs.forEach((child) {
-      Widget content = child.widget;
+      var content = child.widget;
       if (child.globalKey != null) {
         content = KeyedSubtree(key: child.globalKey, child: content);
       }
@@ -58,7 +58,7 @@ class DockingTabsWidgetState extends State<DockingTabsWidget>
         buttons = [];
         buttons.addAll(child.buttons!);
       }
-      final bool maximizable = child.maximizable != null
+      final maximizable = child.maximizable != null
           ? child.maximizable!
           : widget.maximizableTab;
       if (maximizable) {
@@ -83,11 +83,11 @@ class DockingTabsWidgetState extends State<DockingTabsWidget>
           leading: child.leading,
           buttons: buttons));
     });
-    TabbedViewController controller = TabbedViewController(tabs);
+    final controller = TabbedViewController(tabs);
     controller.selectedIndex =
         math.min(widget.dockingTabs.selectedIndex, tabs.length - 1);
 
-    Widget tabbedView = TabbedView(
+    final Widget tabbedView = TabbedView(
         controller: controller,
         tabsAreaButtonsBuilder: _tabsAreaButtonsBuilder,
         onTabSelection: (int? index) {
@@ -128,7 +128,7 @@ class DockingTabsWidgetState extends State<DockingTabsWidget>
 
   bool _onBeforeDropAccept(
       DraggableData source, TabbedViewController target, int newIndex) {
-    DockingItem dockingItem = source.tabData.value;
+    final DockingItem dockingItem = source.tabData.value;
     widget.layout.moveItem(
         draggedItem: dockingItem,
         targetArea: widget.dockingTabs,
@@ -137,12 +137,12 @@ class DockingTabsWidgetState extends State<DockingTabsWidget>
   }
 
   List<TabButton> _tabsAreaButtonsBuilder(BuildContext context, int tabsCount) {
-    List<TabButton> buttons = [];
+    final buttons = <TabButton>[];
     if (widget.dockingButtonsBuilder != null) {
       buttons.addAll(
           widget.dockingButtonsBuilder!(context, widget.dockingTabs, null));
     }
-    final bool maximizable = widget.dockingTabs.maximizable != null
+    final maximizable = widget.dockingTabs.maximizable != null
         ? widget.dockingTabs.maximizable!
         : widget.maximizableTabsArea;
     if (maximizable) {
@@ -169,7 +169,7 @@ class DockingTabsWidgetState extends State<DockingTabsWidget>
   }
 
   void _onTabClose(int tabIndex, TabData tabData) {
-    DockingItem dockingItem = widget.dockingTabs.childAt(tabIndex);
+    final dockingItem = widget.dockingTabs.childAt(tabIndex);
     widget.layout.removeItem(item: dockingItem);
     if (widget.onItemClose != null) {
       widget.onItemClose!(dockingItem);

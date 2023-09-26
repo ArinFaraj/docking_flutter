@@ -6,17 +6,17 @@ import 'utils.dart';
 void main() {
   group('default id and parent', () {
     test('item', () {
-      DockingLayout layout = DockingLayout(root: dockingItem('a'));
+      final layout = DockingLayout(root: dockingItem('a'));
       expect(layout.root, isNotNull);
       testDockingItem(layout.root!,
           layoutIndex: 1, name: 'a', hasParent: false, path: 'I');
     });
 
     test('row', () {
-      DockingItem itemA = dockingItem('a');
-      DockingItem itemB = dockingItem('b');
-      DockingRow row = DockingRow([itemA, itemB]);
-      DockingLayout layout = DockingLayout(root: row);
+      final itemA = dockingItem('a');
+      final itemB = dockingItem('b');
+      final row = DockingRow([itemA, itemB]);
+      final layout = DockingLayout(root: row);
       expect(layout.root, row);
       testDockingParentArea(row,
           childrenCount: 2, hasParent: false, path: 'R', level: 0);
@@ -29,10 +29,10 @@ void main() {
     });
 
     test('column', () {
-      DockingItem itemA = dockingItem('a');
-      DockingItem itemB = dockingItem('b');
-      DockingLayout layout = DockingLayout(root: DockingColumn([itemA, itemB]));
-      DockingColumn column = rootAsColumn(layout);
+      final itemA = dockingItem('a');
+      final itemB = dockingItem('b');
+      final layout = DockingLayout(root: DockingColumn([itemA, itemB]));
+      final column = rootAsColumn(layout);
       expect(column.childrenCount, 2);
       testDockingItem(column.childAt(0),
           layoutIndex: 2, name: 'a', hasParent: true);

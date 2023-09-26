@@ -72,8 +72,8 @@ abstract class DockingArea extends Area {
 
   /// Gets the path in the layout hierarchy.
   String get path {
-    String path = typeAcronym;
-    DockingParentArea? p = _parent;
+    var path = typeAcronym;
+    var p = _parent;
     while (p != null) {
       path = p.typeAcronym + path;
       p = p._parent;
@@ -85,8 +85,8 @@ abstract class DockingArea extends Area {
   ///
   /// Return [0] if root (null parent).
   int get level {
-    int l = 0;
-    DockingParentArea? p = _parent;
+    var l = 0;
+    var p = _parent;
     while (p != null) {
       l++;
       p = p._parent;
@@ -115,7 +115,7 @@ abstract class DockingArea extends Area {
       bool levelInfo = false,
       bool hasParentInfo = false,
       bool nameInfo = false}) {
-    String str = typeAcronym;
+    var str = typeAcronym;
     if (indexInfo) {
       str += index.toString();
     }
@@ -146,7 +146,7 @@ abstract class DockingParentArea extends DockingArea {
             weight: weight,
             minimalWeight: minimalWeight,
             minimalSize: minimalSize) {
-    for (DockingArea child in _children) {
+    for (final child in _children) {
       if (child.runtimeType == runtimeType) {
         throw ArgumentError(
             'DockingParentArea cannot have children of the same type');
@@ -203,7 +203,7 @@ abstract class DockingParentArea extends DockingArea {
     }
     _layoutId = layoutId;
     _index = nextIndex++;
-    for (DockingArea area in _children) {
+    for (final area in _children) {
       nextIndex = area._updateHierarchy(this, nextIndex, layoutId);
     }
     return nextIndex;
@@ -215,9 +215,9 @@ abstract class DockingParentArea extends DockingArea {
       bool levelInfo = false,
       bool hasParentInfo = false,
       bool nameInfo = false}) {
-    String str =
+    var str =
         '${super.hierarchy(indexInfo: indexInfo, levelInfo: levelInfo, hasParentInfo: hasParentInfo)}(';
-    for (int i = 0; i < _children.length; i++) {
+    for (var i = 0; i < _children.length; i++) {
       if (i > 0) {
         str += ',';
       }
@@ -290,7 +290,7 @@ class DockingItem extends DockingArea with DropArea {
       bool levelInfo = false,
       bool hasParentInfo = false,
       bool nameInfo = false}) {
-    String str = super.hierarchy(
+    var str = super.hierarchy(
         indexInfo: indexInfo,
         levelInfo: levelInfo,
         hasParentInfo: hasParentInfo,
@@ -325,8 +325,8 @@ class DockingRow extends DockingParentArea {
       double? weight,
       double? minimalWeight,
       double? minimalSize}) {
-    List<DockingArea> newChildren = [];
-    for (DockingArea child in children) {
+    final newChildren = <DockingArea>[];
+    for (final child in children) {
       if (child is DockingRow) {
         newChildren.addAll(child._children);
       } else {
@@ -369,8 +369,8 @@ class DockingColumn extends DockingParentArea {
       double? weight,
       double? minimalWeight,
       double? minimalSize}) {
-    List<DockingArea> newChildren = [];
-    for (DockingArea child in children) {
+    final newChildren = <DockingArea>[];
+    for (final child in children) {
       if (child is DockingColumn) {
         newChildren.addAll(child._children);
       } else {
@@ -420,7 +420,7 @@ class DockingTabs extends DockingParentArea with DropArea {
 
   @override
   void forEach(void Function(DockingItem child) f) {
-    for (var element in _children) {
+    for (final element in _children) {
       f(element as DockingItem);
     }
   }
@@ -470,7 +470,7 @@ class DockingLayout extends ChangeNotifier {
 
   void _reset() {
     _updateHierarchy();
-    int maximizedCount = 0;
+    var maximizedCount = 0;
     layoutAreas().forEach((area) {
       if (area is DockingItem && area.maximized) {
         maximizedCount++;
@@ -524,8 +524,8 @@ class DockingLayout extends ChangeNotifier {
       if (parent is DockingItem && parent.id == id) {
         return parent;
       } else if (parent is DockingParentArea) {
-        for (DockingArea child in parent._children) {
-          DockingItem? item = _findDockingItem(parent: child, id: id);
+        for (final child in parent._children) {
+          final item = _findDockingItem(parent: child, id: id);
           if (item != null) {
             return item;
           }
@@ -597,8 +597,8 @@ class DockingLayout extends ChangeNotifier {
 
   /// Removes multiple DockingItem by id from this layout.
   void removeItemByIds(List<dynamic> ids) {
-    List<LayoutModifier> modifiers = [];
-    for (dynamic id in ids) {
+    final modifiers = <LayoutModifier>[];
+    for (final dynamic id in ids) {
       modifiers.add(RemoveItemById(id: id));
     }
     _rebuild(modifiers);
@@ -634,7 +634,7 @@ class DockingLayout extends ChangeNotifier {
       throw StateError('Root is null');
     }
     if (root is DropArea) {
-      DropArea targetArea = root! as DropArea;
+      final targetArea = root! as DropArea;
       _rebuild([
         AddItem(
             newItem: newItem,
@@ -650,9 +650,9 @@ class DockingLayout extends ChangeNotifier {
 
   /// Rebuilds this layout with modifiers.
   void _rebuild(List<LayoutModifier> modifiers) {
-    List<DockingArea> olderAreas = layoutAreas();
+    final olderAreas = layoutAreas();
 
-    for (LayoutModifier modifier in modifiers) {
+    for (final modifier in modifiers) {
       layoutAreas().forEach((area) {
         if (area is DockingItem) {
           area._resetLocationInLayout();
@@ -662,7 +662,7 @@ class DockingLayout extends ChangeNotifier {
       _root = modifier.newLayout(this);
       _updateHierarchy();
 
-      for (var area in olderAreas) {
+      for (final area in olderAreas) {
         if (area is DockingParentArea) {
           area._dispose();
         } else if (area is DockingItem) {
@@ -686,7 +686,7 @@ class DockingLayout extends ChangeNotifier {
 
   /// Gets all [DockingArea] from this layout.
   List<DockingArea> layoutAreas() {
-    List<DockingArea> list = [];
+    final list = <DockingArea>[];
     if (_root != null) {
       _fetchAreas(list, _root!);
     }
@@ -697,7 +697,7 @@ class DockingLayout extends ChangeNotifier {
   void _fetchAreas(List<DockingArea> areas, DockingArea root) {
     areas.add(root);
     if (root is DockingParentArea) {
-      DockingParentArea parentArea = root;
+      final parentArea = root;
       parentArea.forEach((child) => _fetchAreas(areas, child));
     }
   }

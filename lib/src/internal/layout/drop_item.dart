@@ -52,14 +52,14 @@ class DropItem extends LayoutModifier {
   /// Builds a new root.
   DockingArea? _buildLayout(DockingArea area) {
     if (area is DockingItem) {
-      final DockingItem dockingItem = area;
+      final dockingItem = area;
       if (dockingItem == dropItem && dockingItem == targetArea) {
         throw StateError('DockingItem is dragged and target at same time.');
       } else if (dockingItem == dropItem) {
         // ignore
         return null;
       } else if (dockingItem == targetArea) {
-        final DockingItem newDraggedItem = dropItem;
+        final newDraggedItem = dropItem;
         if (dropIndex == 0) {
           return DockingTabs([newDraggedItem, dockingItem]);
         } else if (dropIndex == 1) {
@@ -78,12 +78,12 @@ class DropItem extends LayoutModifier {
       }
       return area;
     } else if (area is DockingTabs) {
-      final DockingTabs dockingTabs = area;
-      List<DockingItem> children = [];
+      final dockingTabs = area;
+      final children = <DockingItem>[];
       DockingItem? oldSelection;
-      int oldIndex = -1;
-      for (int index = 0; index < dockingTabs.childrenCount; index++) {
-        DockingItem child = dockingTabs.childAt(index);
+      var oldIndex = -1;
+      for (var index = 0; index < dockingTabs.childrenCount; index++) {
+        final child = dockingTabs.childAt(index);
         if (child == targetArea) {
           throw ArgumentError('Nested tabbed panels are not allowed.');
         }
@@ -104,15 +104,15 @@ class DropItem extends LayoutModifier {
             maximized: dockingTabs.maximized,
             maximizable: dockingTabs.maximizable);
         if (oldSelection != null) {
-          int newSelectedIndex = children.indexOf(oldSelection);
+          final newSelectedIndex = children.indexOf(oldSelection);
           (newArea as DockingTabs).selectedIndex =
               newSelectedIndex > -1 ? newSelectedIndex : 0;
         }
       }
       if (dockingTabs == targetArea) {
-        DockingItem newDraggedItem = dropItem;
+        final newDraggedItem = dropItem;
         if (dropIndex != null) {
-          int newIndex = dropIndex!;
+          var newIndex = dropIndex!;
           if (oldIndex > -1) {
             if (newIndex > 0) {
               newIndex--;
@@ -121,9 +121,9 @@ class DropItem extends LayoutModifier {
           } else {
             children.insert(newIndex, newDraggedItem);
           }
-          DockingTabs newDockingTabs = DockingTabs(children);
+          final newDockingTabs = DockingTabs(children);
           if (oldSelection != null) {
-            int newSelectedIndex = children.indexOf(oldSelection);
+            final newSelectedIndex = children.indexOf(oldSelection);
             newDockingTabs.selectedIndex =
                 newSelectedIndex > -1 ? newSelectedIndex : 0;
           }
@@ -142,9 +142,9 @@ class DropItem extends LayoutModifier {
       }
       return newArea;
     } else if (area is DockingParentArea) {
-      List<DockingArea> children = [];
+      final children = <DockingArea>[];
       area.forEach((child) {
-        DockingArea? newChild = _buildLayout(child);
+        final newChild = _buildLayout(child);
         if (newChild != null) {
           children.add(newChild);
         }
